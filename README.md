@@ -14,7 +14,7 @@ WoMANO provides three software modules:
 It interfaces with the virtual infrastructure manager (VIM) and provids the upstream interface for providing NFV
 services, such as creating or deleting virtual network functions.
 
-2.WoVIM: it relizes virtual resource management, it interfaces with the computing nodes and controller, provids
+2. WoVIM: it relizes virtual resource management, it interfaces with the computing nodes and controller, provids
 compute and network capabilities, and the deployment of virtual machines. It externally offers the upstream
 interfaces, you can enhance the function of the cloud computing services, such as creating, deleting, managing the 
 images, instances and network.
