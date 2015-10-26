@@ -1,6 +1,6 @@
 # WoMANO
     
-    WoMANO is an open source project that provides a practical 
+WoMANO is an open source project that provides a practical 
 
 realization of the Network Function Virtualization Management and 
 
@@ -34,7 +34,7 @@ Unicom to carry out network infrastructure upgrades, and simplified
 
 network operating mode.
 
-    WoMANO provides three software modules:
+WoMANO provides three software modules:
 
 1. Womano：it realizes the network service orchestration (NFV-O), 
 
