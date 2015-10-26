@@ -10,7 +10,7 @@ mode.
 
 WoMANO provides three software modules:
 
-1. Womano：it realizes the network service orchestration (NFV-O), it can create a complex virtual network environment.
+1. Womano: it realizes the network service orchestration (NFV-O), it can create a complex virtual network environment.
 It interfaces with the virtual infrastructure manager (VIM) and provids the upstream interface for providing NFV
 services, such as creating or deleting virtual network functions.
 
