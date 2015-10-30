@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- unfvo-config.xml -->
+<config>
+	<module handler="com.culabs.nfvo.config.SystemConfig">
+		<block id="work_environment">
+			<property key="server_port" value="9090" />
+			<property key="isTest" value="true" />
+			<property key="monitor_port" value="2233" />
+			<property key="monitor_timeout" value="30000" desc="millisecond" />
+			<property key="needVPCCreated" value="true" />
+		</block>
+		<block id="pscsf">
+			<property key="imageRef" value="f0653968-2786-4966-a1de-465250165b6a" />
+			<property key="volume_size" value="30" />
+			<property key="flavorRef" value="vcpus_1-ram_2-disk_64" />
+			<property key="server_period" value="20" desc="second" />
+			<property key="fixed_ip" value="192.168.200.11" />
+		</block>
+ 		<block id="isscsf">
+			<property key="imageRef" value="a217e0e1-eded-4bf4-bb38-843783785918" />
+			<property key="flavorRef" value="vcpus_1-ram_2-disk_64" />
+			<property key="server_period" value="20" desc="second" />
+			<property key="fixed_ip" value="192.168.200.12" />
+		</block>
+		<block id="ellis">
+			<property key="imageRef" value="1a9cf91a-843c-4fef-b11b-50085bb99e47" />
+			<property key="flavorRef" value="vcpus_1-ram_2-disk_64" />
+			<property key="server_period" value="20" desc="second" />
+			<property key="fixed_ip" value="192.168.200.13" />
+		</block>
+		<block id="hss">
+			<property key="imageRef" value="35a10aba-1794-4cc4-b078-cfd25fdcd781" />
+			<property key="flavorRef" value="vcpus_1-ram_2-disk_64" />
+			<property key="server_period" value="20" desc="second" />
+			<property key="fixed_ip" value="192.168.200.15" />
+		</block>
+		<block id="xdms">
+			<property key="imageRef" value="4787ed92-866f-45c8-9890-8b4f97234e8f" />
+			<property key="flavorRef" value="vcpus_1-ram_2-disk_64" />
+			<property key="server_period" value="20" desc="second" />
+			<property key="fixed_ip" value="192.168.200.14" />
+		</block>
+	</module>
+	<module handler="com.culabs.nfvo.config.RestConfigHandler">
+		<rest id='getTokenId' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/tokens</url>
+			<reqjson>{"auth":{"tenantName":"admin"\,"passwordCredentials":{"username":"admin"\,"password":"admin"}}}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="35357" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+			</properties>
+		</rest>
+		<rest id='createVpc' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/routers</url>
+			<reqjson>{"router":{"name":"{vpcname}"\,"tenant_id":"4c1944cb12c84985a8a94b49aaea5d2d"}}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="vpcname" value="today04_vpc" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createGWRouter' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/igwrouters</url>
+			<reqjson>{"router":{"name":"nfv_igwrouter"\,"router_id":""\,"tenant_id":"4c1944cb12c84985a8a94b49aaea5d2d"}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="name" value="igw" />
+				<property key="bandwidth_tx" value="10000" />
+				<property key="bandwidth_rx" value="10000" />
+				<property key="router_type" value="igw" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createPublicIpResource' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/publicipresources</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="begin" value="10.2.167.222" />
+				<property key="end" value="10.2.167.222" />
+				<property key="mask" value="24" />
+				<property key="gateway_ip" value="10.2.167.254" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createPublicIp' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/publicips</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="name" value="public_ip" />
+				<property key="default_snat_source" value="true" />
+				<property key="floating_ip_address" value="10.2.167.214" />
+				<property key="publicipresource_id" value="" />
+				<property key="gateway_ip" value="10.2.167.254" />
+				<property key="mask" value="24" />
+				<property key="type" value="igw" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='queryPublicIpResourceList' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/publicipresources</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createNat' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/nats</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="nat_name" value="nat" />
+				<property key="type" value="dnat" />
+				<property key="protocol" value="tcp" />
+				<property key="fixed_ip" value="192.168.200.11" />	
+				<property key="source_port" value="11022" />
+				<property key="destination_port" value="22" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createRoutingTable' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/routingtables</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="name" value="routing_table" />
+				<property key="router_id" value="" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createRoutingRule' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/routingrules</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="type" value="igw" />
+				<property key="name" value="routing_rule" />
+				<property key="gwrouter_id" value="" />
+				<property key="routingtable_id" value="" />
+				<property key="prefix" value="0.0.0.0/0" />
+				<property key="nexthop" value="0.0.0.0" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createAcl' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/acltables</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="name" value="acltable" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createAclRule' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/aclrules</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="name" value="acl_rule" />
+				<property key="port_range_min" value="0" />
+				<property key="port_range_max" value="65535" />
+				<property key="direction" value="outbound" />
+				<property key="priority" value="1" />
+				<property key="prefix" value="0.0.0.0/0" />
+				<property key="protocol" value="tcp" />
+				<property key="strategy" value="allow" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createNetwork' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/networks</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="name" value="net" />
+				<property key="shared" value="false" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createVpcSubnet' type='put' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/routers/{vpc_id}/add_router_interface</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="subnet_id" value="" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createSubnet' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/subnets</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="name" value="subnet" />
+				<property key="gateway_ip" value="192.168.200.1" />
+				<property key="ip_version" value="4" />
+				<property key="cidr" value="192.168.200.0/24" />
+				<property key="enable_dhcp" value="true" />
+				<property key="allocation_pools_start" value="192.168.200.2" />
+				<property key="allocation_pools_end" value="192.168.200.254" />
+				<property key="dns_nameservers" value="" />
+				<property key="host_routes_destination" value="" />
+				<property key="host_routes_nexthop" value="" />
+				<property key="ipv6_ra_mode" value="" />
+				<property key="ipv6_address_mode" value="" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createPort' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/ports</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createSubnetRoutingTable' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/subnettoroutingtables
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="name" value="subnet_routingtable" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createSubnetAclTable' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/subnetacltables</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="name" value="subnet_acl" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createServer' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v1.1/{tenant_id}/os-volumes_boot</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="security_groups_name" value="default" />
+				<property key="name" value="scscf_exceed_vm" />
+				
+				<property key="imageRef" value="a217e0e1-eded-4bf4-bb38-843783785918" />
+			    <property key="flavorRef" value="vcpus_1-ram_2-disk_64" />
+    			<property key="fixed_ip" value="192.168.200.12" />
+<!-- 				<property key="imageRef" value="7225edcd-d714-458d-bc19-f59ca762766b" />
+				<property key="flavorRef" value="vcpus_1-ram_1-disk_30" /> -->
+				<property key="source_type" value="volume" />
+				<property key="delete_on_termination" value="false" />
+				<property key="boot_index" value="0" />
+				<property key="destination_type" value="volume" />
+				<property key="max_count" value="1" />
+				<property key="min_count" value="1" />
+				<property key="network_uuid" value="356de426-bd5b-495a-b5d9-f2eab56dcd76" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='deleteServer' type='delete' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/servers/{server_id}
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="server_id" value="" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createInstance' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/servers</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="security_groups_name" value="default" />
+				<property key="network_uuid" value="" />
+				<property key="max_count" value="1" />
+				<property key="min_count" value="1" />
+				<property key="X-Auth-Token" value="" />
+				<property key="ellis_name" value="ELLIS" />
+				<property key="ellis_imageRef" value="d7c4612d-bc44-45f3-be8c-edf2c335b3e9" />
+				<property key="ellis_flavorRef" value="2" />
+				<property key="hss_name" value="HSS" />
+				<property key="hss_imageRef" value="d7c4612d-bc44-45f3-be8c-edf2c335b3e9" />
+				<property key="hss_flavorRef" value="2" />
+				<property key="pscsf_name" value="P-SCSF" />
+				<property key="pscsf_imageRef" value="d7c4612d-bc44-45f3-be8c-edf2c335b3e9" />
+				<property key="pscsf_flavorRef" value="2" />
+				<property key="isscsf_name" value="I/S-SCSF" />
+				<property key="isscsf_imageRef" value="d7c4612d-bc44-45f3-be8c-edf2c335b3e9" />
+				<property key="isscsf_flavorRef" value="2" />
+				<property key="xdms_name" value="XDMS" />
+				<property key="xdms_imageRef" value="d7c4612d-bc44-45f3-be8c-edf2c335b3e9" />
+				<property key="xdms_flavorRef" value="2" />
+				<property key="template_id" value="vIMS" />
+				<property key="instance_name" value="vIMS" />
+			</properties>
+		</rest>
+		<rest id='backUpInstance' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/servers/{vm_id}/backup2_instance
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="vm_id" value="de5662fd-ebb9-4ae8-a774-359b614fc74b" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getServers' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/servers</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getHypervisorDetail' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/os-hypervisors/{hypervisor_id}
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="hypervisor_id" value="2" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getHypervisors' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/os-hypervisors
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getPhyHosts' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/os-hosts
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getServersDetail' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/servers/detail
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getServerDetail' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/servers/{server_id}
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+				<property key="server_id" value="" />
+			</properties>
+		</rest>
+		<rest id='getVolumeSize' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/os-volumes/{volume_id}
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createVolume' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v1/{tenant_id}/volumes
+			</url>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8776" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="bootable" value="true" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>		
+		<rest id='cloneVolume' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/os-volumes
+			</url>
+			<reqjson> {"volume": { "source_volid": "{source_volid}"\,
+				"display_description": null\, "display_name": "{display_name}"\,
+				"size": 30 }}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="source_volid" value="" />
+				<property key="size" value="" />
+				<property key="display_name" value="pscsf_name" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='cloneServer' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2/{tenant_id}/servers
+			</url>
+			<reqjson>{"server": {"name": "{name}"\, "flavorRef": "{flavorRef}"\,
+				"block_device_mapping_v2" :[{"source_type": "volume"\, "boot_index":
+				"{boot_index}"\, "uuid": "{volume_uuid}"\, "volume_size":
+				{volume_size}}]\, "security_groups": [{"name":
+				"{security_groups_name}"}]}}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="8774" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="name" value="" />
+				<property key="volume_uuid" value="" />
+				<property key="volume_size" value="30" />
+				<property key="flavorRef" value="2" />
+				<property key="boot_index" value="0" />
+				<property key="security_groups_name" value="default" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createPool' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/lb/pools
+			</url>
+			<reqjson>{"pool": {"tenant_id": "{tenant_id}"\, "name":
+				"{pool_name}"\, "protocol": "{protocol}"\, "subnet_id":
+				"{subnet_id}"\,"lb_method": "{lb_method}"}}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="pool_name" value="unfvo_pool" />
+				<property key="protocol" value="TCP" />
+				<property key="subnet_id" value="c504b3b5-a735-4155-8c30-8f94d1042560" />
+				<property key="lb_method" value="ROUND_ROBIN" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='deletePool' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/lb/pools/​{pool_id}​
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="pool_id" value="" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createVIP' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/lb/vips
+			</url>
+			<reqjson>{"vip": {"protocol":
+				"{protocol}"\,"name":"{vip_name}"\,"admin_state_up":
+				true\,"subnet_id":"{subnet_id}"\,"pool_id":"{pool_id}"\,"protocol_port":"{protocol_port}"}}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="protocol" value="TCP" />
+				<property key="vip_name" value="vip521" />
+				<property key="subnet_id" value="c504b3b5-a735-4155-8c30-8f94d1042560" />
+				<property key="pool_id" value="23a9fd01-4527-43c5-9f5a-97c1eabb6d1e" />
+				<property key="protocol_port" value="5060" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='deleteVIP' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/lb/vips/​{vip_id}​
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="vip_id" value="" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='createMember' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/lb/members
+			</url>
+			<reqjson>{"member": {"address": "{member_ip}"\, "protocol_port":
+				{protocol_port}\, "tenant_id": "{tenant_id}"\, "pool_id":
+				"{pool_id}" }}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="member_ip" value="192.168.225.35" />
+				<property key="protocol_port" value="5060" />
+				<property key="pool_id" value="23a9fd01-4527-43c5-9f5a-97c1eabb6d1e" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='deleteMember' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/lb/members/​{member_id}​
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="member_id" value="" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getSubnets' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/subnets
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='getPorts' type='get' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/ports
+			</url>
+			<reqjson></reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+		<rest id='updatePorts' type='post' desc=''>
+			<url>http://{remote_ip}:{remote_port}/v2.0/ports/{port_id}
+			</url>
+			<reqjson>{"port":{"security_groups": ["security_groups_uuid"]}}
+			</reqjson>
+			<properties>
+				<property key="remote_ip" value="192.168.200.80" />
+				<property key="remote_port" value="9696" />
+				<property key="tenant_id" value="4c1944cb12c84985a8a94b49aaea5d2d" />
+				<property key="port_id" value="" />
+				<property key="security_groups_uuid" value="26a569c7-25a8-486c-b990-386defd2df88" />
+				<property key="X-Auth-Token" value="" />
+			</properties>
+		</rest>
+	</module>
+</config>

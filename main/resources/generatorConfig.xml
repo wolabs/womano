@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="E:\IWork\workspace\unfvo\mysql-connector-java-5.1.29.jar" />
+	<context id="context1" targetRuntime="MyBatis3">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/nfvodb?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="root" />
+		<javaModelGenerator targetPackage="com.culabs.nfvo.model.db"
+			targetProject="E:\IWork\workspace\unfvo\src\main\java" />
+		<sqlMapGenerator targetPackage="com.culabs.nfvo.dao"
+			targetProject="E:\IWork\workspace\unfvo\src\main\java" />
+		<javaClientGenerator targetPackage="com.culabs.nfvo.dao"
+			targetProject="E:\IWork\workspace\unfvo\src\main\java" type="XMLMAPPER" />
+		<!-- <table schema="general" tableName="assurance_param"
+			domainObjectName="EntityName" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table> -->
+		<!-- <table schema="general" tableName="assurance_param"
+			domainObjectName="AssuranceParam" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="completion"
+			domainObjectName="Completion" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="connection_point"
+			domainObjectName="ConnectionPoint" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="dependency"
+			domainObjectName="Dependency" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="end_point"
+			domainObjectName="Endpoint" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="forwarding_graph"
+			domainObjectName="ForwardingGraph" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="member_vld"
+			domainObjectName="MemberVld" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="member_vnf"
+			domainObjectName="MemberVnf" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="monitoring_param"
+			domainObjectName="MonitoringParam" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="network_forwarding_path"
+			domainObjectName="NetworkForwardingPath" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="network_interface"
+			domainObjectName="NetworkInterface" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="property"
+			domainObjectName="Property" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="template"
+			domainObjectName="Template" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="template_flavour"
+			domainObjectName="TemplateFlavour" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vdu"
+			domainObjectName="Vdu" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vdu_flavour"
+			domainObjectName="VduFlavour" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vld"
+			domainObjectName="Vld" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="workflow"
+			domainObjectName="Workflow" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table> 
+		<table schema="general" tableName="template_nsd"
+			domainObjectName="DBNsd" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="template_vnfd"
+			domainObjectName="DBVnfd" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="template_nsd_vnfd"
+			domainObjectName="DBNsdVnfd" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="acl"
+			domainObjectName="DBAcl" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="acl_rule"
+			domainObjectName="DBAclRule" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="acl_subnet"
+			domainObjectName="DBAclSubnet" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="nat"
+			domainObjectName="DBNat" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="network"
+			domainObjectName="DBNetwork" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="port"
+			domainObjectName="DBPort" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="public_ip"
+			domainObjectName="DBPublicIp" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="public_ip_resource"
+			domainObjectName="DBPublicIpResource" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="gw_router"
+			domainObjectName="DBGWRouter" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="server"
+			domainObjectName="DBServer" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="subnet"
+			domainObjectName="DBSubnet" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="tenant"
+			domainObjectName="DBTenant" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vpn_connection_point"
+			domainObjectName="DBVpnConnectionPoint" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="routing_table"
+			domainObjectName="DBRoutingTable" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="routing_rule"
+			domainObjectName="DBRoutingRule" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="subnet_routing_table"
+			domainObjectName="DBSubnetRoutingTable" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vpc"
+			domainObjectName="DBVpc" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="hypervisor"
+			domainObjectName="DBHypervisor" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="instance"
+			domainObjectName="DBInstance" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="instance_server"
+			domainObjectName="DBInstanceServer" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="pool"
+			domainObjectName="DBPool" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vip"
+			domainObjectName="DBVip" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="member"
+			domainObjectName="DBMember" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		-->
+		<table schema="general" tableName="attribute"
+			domainObjectName="DBAttribute" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="acl_rules"
+			domainObjectName="DBAclRules" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="acl_tables"
+			domainObjectName="DBAclTables" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="aggregates"
+			domainObjectName="DBAggregates" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="alarm_bindings"
+			domainObjectName="DBAlarmBindings" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="alarm_meters"
+			domainObjectName="DBAlarmMeters" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="alarm_rules"
+			domainObjectName="DBAlarmRules" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="alarm_time_constraints"
+			domainObjectName="DBAlarmTimeConstraints" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="alarms"
+			domainObjectName="DBAlarms" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="alembic_version"
+			domainObjectName="DBAlembicVersion" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="alerts"
+			domainObjectName="DBAlerts" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="atomdetails"
+			domainObjectName="DBAtomdetails" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="compute_nodes"
+			domainObjectName="DBComputeNodes" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="flavors"
+			domainObjectName="DBFlavors" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="flowdetails"
+			domainObjectName="DBFlowdetails" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="images"
+			domainObjectName="DBImages" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="instance_backups"
+			domainObjectName="DBInstanceBackups" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="instances"
+			domainObjectName="DBInstances" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="internets"
+			domainObjectName="DBInternets" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="jobs"
+			domainObjectName="DBJobs" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="lb_members"
+			domainObjectName="DBLbMembers" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="lb_pool_statistics"
+			domainObjectName="DBLbPoolStatistics" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="lb_pools"
+			domainObjectName="DBLbPools" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="lb_vips"
+			domainObjectName="DBLbVips" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="logbooks"
+			domainObjectName="DBLogBooks" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="nats"
+			domainObjectName="DBNats" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="networks"
+			domainObjectName="DBNetworks" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="permissions"
+			domainObjectName="DBPermissions" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="ports"
+			domainObjectName="DBPorts" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="public_resources"
+			domainObjectName="DBPublicResources" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="publicips"
+			domainObjectName="DBPublicips" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="quota_classes"
+			domainObjectName="DBQuotaClasses" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="quota_usages"
+			domainObjectName="DBQuotaUsages" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="quotas"
+			domainObjectName="DBQuotas" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="reservations"
+			domainObjectName="DBReservations" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="role_permissions"
+			domainObjectName="DBRolePermissions" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="roles"
+			domainObjectName="DBRoles" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="route_tables"
+			domainObjectName="DBRouteTables" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="router_networks"
+			domainObjectName="DBRouterNetworks" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="routers"
+			domainObjectName="DBRouters" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="routing_rules"
+			domainObjectName="DBRouterRules" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="security_group_ports"
+			domainObjectName="DBSecurityGroupPorts" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="security_group_rules"
+			domainObjectName="DBSecurityGroupRules" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="security_groups"
+			domainObjectName="DBSecurityGroups" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="subnet_acl_tables"
+			domainObjectName="DBSubnetAclTables" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="subnet_route_tables"
+			domainObjectName="DBSubnetRouteTables" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="subnets"
+			domainObjectName="DBSubnets" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="system_properties"
+			domainObjectName="DBSystemProperties" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="user_login"
+			domainObjectName="DBUserLogin" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="user_properties"
+			domainObjectName="DBUserProperties" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="user_roles"
+			domainObjectName="DBUserRoles" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="users"
+			domainObjectName="DBUsers" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="virtualrouter_floatingips"
+			domainObjectName="DBVirtualrouterFloatingips" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="virtualrouter_nats"
+			domainObjectName="DBVirtualrouterNats" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="virtualrouter_networks"
+			domainObjectName="DBVirtualrouterNetworks" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="virtualrouter_publicips"
+			domainObjectName="DBVirtualrouterPublicips" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="virtualrouter_subnets"
+			domainObjectName="DBVirtualrouterSubnets" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="virtualrouters"
+			domainObjectName="DBVirtualrouter" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="volume_backups"
+			domainObjectName="DBVolumeBackups" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="volumes"
+			domainObjectName="DBVolumes" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vpn_endpoints"
+			domainObjectName="DBVpnEndpoints" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="general" tableName="vpns"
+			domainObjectName="DBVpns" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="true" />
+		</table>		
+	</context>
+</generatorConfiguration>

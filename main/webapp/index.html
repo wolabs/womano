@@ -1,0 +1,410 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<title>VNF管理系统</title>
+<link rel="stylesheet" type="text/css"
+	href="js/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="js/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/uploadify.css" />
+<style type="text/css">
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="js/lang/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="js/excanvas.js"></script>
+<script type="text/javascript"
+	src="js/uploadify/jquery.uploadify-3.1.js"></script>
+<!-- <script type="text/javascript"
+	src="js/uploadify/jquery.uploadify-3.1.min.js"></script> -->
+<script type="text/javascript" src="js/uploadify/swfobject.js"></script>
+<script type="text/javascript" src="js/nfvo-table.js"></script>
+<script type="text/javascript" src="js/nfvo.js"></script>
+<script type="text/javascript">
+	
+</script>
+</head>
+
+<body>
+	<div id="header_box">
+		<div id="logo">中国联通 VNF管理系统</div>
+		<!-- <div class="admin_box">
+			<span class="admin">administrator</span> <span class="v_line"></span>
+			<a class="btn_out"></a>
+		</div> -->
+	</div>
+	<input id="instancetype" type="text" style="display: none;" value="" />
+	<div id="main_box">
+		<div id="meanu">
+			<ul class="meanul">
+				<li><a class="a1 active">模板管理</a>
+					<ul class="lev2" style="display: block;">
+						<li><a alt="1" class="alist active">VNF</a></li>
+						<li><a alt="2" class="alist">NS</a></li>
+					</ul></li>
+				<li><a class="a2">实例</a>
+					<ul class="lev2">
+						<li><a alt="3" class="alist">vIMS</a></li>
+						<li><a alt="4" class="alist">vEPC</a></li>
+						<li><a alt="5" class="alist">vBras</a></li>
+					</ul></li>
+				<li><a alt="6" class="a3">全景视图</a>
+					<ul id="fullviewid" class="lev2">
+					</ul></li>
+			</ul>
+		</div>
+		<div id="main">
+			<div id="banner">
+				<a>模板管理</a>><a>VNF</a>
+			</div>
+			<div id="content">
+				<div class="content_wrapper">
+					<div class="contents" style="left: 0px;">
+						<div class="div_box1" style="display: block;">
+							<!--
+                     <input type="text" class="upload_text">
+                     <input type="file" class="upload_hide">
+                     -->
+							<h1>VNF模板列表</h1>
+							<div class="a_btn">
+								<input type="file" name="vnf_upload" class="a_btn"
+									style="width: 100%;" id="vnf_upload" />
+							</div>
+							<!-- <a
+							href="javascript:$('#vnf_upload').uploadifyUpload()">上传</a> <a
+							href="javascript:$('#vnf_upload').uploadifyClearQueue()">取消上传</a> -->
+							<div class="easyui_box" id="vnfGrid"
+								style="height: 520px; margin: 0px 0px 0px 0px"></div>
+						</div>
+						<div class="div_box1 nsdstyle">
+							<ul class="nav_tab nav2">
+								<li class="active">配置文件</li>
+							</ul>
+							<a class="a_btn goback_tab"> <span>&#xe62d;</span>返回列表
+							</a>
+							<div class="tab_box">
+								<div class="tab_div"
+									style="display: block; width: 100%; height: 100%; scroll: auto;">
+									<pre id="vnf_xml" class="text_bg">
+								</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contents">
+						<div class="div_box1" style="display: block;">
+							<h1>NS模板列表</h1>
+							<div class="a_btn">
+								<input type="file" name="ns_upload" class="a_btn" style=""
+									id="ns_upload" />
+							</div>
+							<div class="easyui_box" id="nsGrid"
+								style="height: 520px; margin: 0px 0px 0px 0px"></div>
+						</div>
+						<div class="div_box1">
+							<ul class="nav_tab nav2">
+								<li class="active">配置文件</li>
+							</ul>
+							<a class="a_btn goback_tab"> <span>&#xe62d;</span>返回列表
+							</a>
+							<div class="tab_box">
+								<div class="tab_div"
+									style="display: block; width: 100%; height: 100%; scroll: auto;">
+									<pre id="ns_xml" class="text_bg">
+								</pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contents">
+						<div class="div_box1" style="display: block;">
+							<h1>实例列表</h1>
+							<a class="shili_btn a_btn"> <span>&#xe610;</span>实例化
+							</a>
+							<div class="tab_box" style="left: -9999px;">
+								<div class="easyui_box" id="vIMSGrid"
+									style="height: 520px; margin: 0px 0px 0px 0px"></div>
+							</div>
+						</div>
+						<div class="div_box1">
+							<ul class="nav_tab nav2">
+								<li class="active">图形界面</li>
+							</ul>
+							<a class="a_btn goback_tab" alt="vIMSGrid"> <span>&#xe62d;</span>返回列表
+							</a>
+							<div class="tab_box">
+								<div class="tab_div"
+									style="position: relative; display: block; width: 100%; height: 100%;">
+									<div class="tab_div_sub">
+										<canvas id="canvas_id" width="1000px" height="500px"
+											style="position: absolute; z-index: 1; left: 0;"></canvas>
+										<div
+											style="width: 1000px; height: 500px; position: absolute; z-index: 2;">
+
+											<div id="ellis" alt="0" class="ellis"></div>
+											<div id="xdms" alt="0" class="xdms"></div>
+											<div id="hss" alt="0" class="hss"></div>
+											<div id="isscsf" alt="0" class="isscsf"></div>
+											<div id="pscsf" alt="0" class="pscsf"></div>
+											<div id="ue" alt="0" class="ue"></div>
+										</div>
+									</div>
+									<div class="tab_div_sub">
+										<h1>欢迎</h1>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contents">
+						<div class="div_box1" style="display: block;">
+							<h1>vEPC模板列表</h1>
+							<a class="shili_btn a_btn"> <span>&#xe610;</span>实例化
+							</a>
+							<div class="tab_box">
+								<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<thead>
+										<tr>
+											<th>名称</th>
+											<th>厂家</th>
+											<th>类型</th>
+											<th>版本</th>
+											<th>描述</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家1</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家2</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家3</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家4</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="div_box1">
+							<ul class="nav_tab nav2">
+								<li class="active">图形界面</li>
+							</ul>
+							<a class="a_btn goback_tab"> <span>&#xe62d;</span>返回列表
+							</a>
+							<div class="tab_box">
+								<div class="tab_div" style="display: block">
+									<div class="img_box">
+										<img src="images/img01.png">
+										<div class="in_pc"
+											title="<p class='color2'>attribute1:NaN<br>attribute2:NaN<br>attribute3:NaN<br>attribute4:NaN<p>"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contents">
+						<div class="div_box1" style="display: block;">
+							<h1>vBras模板列表</h1>
+							<a class="shili_btn a_btn"> <span>&#xe610;</span>实例化
+							</a>
+							<div class="tab_box">
+								<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<thead>
+										<tr>
+											<th>名称</th>
+											<th>厂家</th>
+											<th>类型</th>
+											<th>版本</th>
+											<th>描述</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家1</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家2</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家3</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td>厂家4</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td>&nbsp;</td>
+											<td><a class="spanios look" title="查看XML文件">&#xe625;</a>&nbsp;&nbsp;<a
+												class="spanios">&#xe62a;</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="div_box1">
+							<ul class="nav_tab nav2">
+								<li class="active">图形界面</li>
+							</ul>
+							<a class="a_btn goback_tab"> <span>&#xe62d;</span>返回列表
+							</a>
+							<div class="tab_box">
+								<div class="tab_div" style="display: block">
+									<div class="img_box">
+										<img src="images/img01.png">
+										<div class="in_pc"
+											title="<p class='color2'>attribute1:NaN<br>attribute2:NaN<br>attribute3:NaN<br>attribute4:NaN<p>"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contents" id="fullview_content_id">
+						<div class="full_view_top">
+							<div class="cc">
+								<a href="##"><img src="images/cc.png" /></a>
+							</div>
+							<div class="qu">
+								<a href="##"><img src="images/qu.png"></a>
+							</div>
+							<div style="position: absolute; right: 20px; top: 20px;">
+								<div style="display: inline-block;width:80px;margin:5px; padding:5px; background: #00e42b">正常</div>
+								<div style="display: inline-block;width:80px;margin:5px; padding:5px; background: red">错误</div>
+								<div style="display: inline-block;width:80px;margin:5px; padding:5px; background: #6c6c6c">其他</div>
+							</div>
+						</div>
+						<div class="full_views"></div>
+						<div class="neu">
+							<a href="##"><img src="images/neu.png"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 遮罩层-->
+		<div class="mask"></div>
+
+		<!-- 上传动画-->
+		<div class="wrapper">
+			<div id="preloader5"></div>
+			<div class="uploading">上传中...</div>
+		</div>
+
+		<!-- 实例化弹窗-->
+		<div class="tab_shili">
+			<h2>实例化</h2>
+			<a class="close_btn">&#xe631;</a>
+			<div class="shili_change_box">
+				<div class="easyui_box" id="nsChooseGrid"
+					style="height: 520px; margin: 0px 0px 0px 0px"></div>
+
+				<!-- <table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="40">选择</th>
+							<th>名称</th>
+							<th>厂家</th>
+							<th>类型</th>
+							<th>版本</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox" name="banben"></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="banben"></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="banben"></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="banben"></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" name="banben"></td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table> -->
+			</div>
+			<div class="h50">
+				<a class="a_sl_btn">确认实例化</a>
+			</div>
+		</div>
+</body>
+</html>
+

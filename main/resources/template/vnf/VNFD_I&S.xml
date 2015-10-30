@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vnfd xmlns="urn:com.culabs.nfvo.model.vnfd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:com.culabs.nfvo.model.vnfd vnfd.xsd ">
+	<name>isscsf</name>
+	<vnfd-id>isscsf</vnfd-id>
+	<provider>culabs</provider>
+	<description>I/S-SCSF</description>
+	<version>1.0</version>
+	<workflows>
+		<init />
+		<terminate />
+		<graceful-shutdown />
+	</workflows>
+	<connection-points>
+		<connection-point>
+			<name>mgmt-if</name>
+			<description>Management interface</description>
+		</connection-point>
+		<connection-point>
+			<name>pkt-in</name>
+			<description>Interface for packet in</description>
+		</connection-point>
+		<connection-point>
+			<name>packet-out</name>
+			<description>Packet out interface</description>
+		</connection-point>
+	</connection-points>
+	<internal-connectivity />
+	<monitoring-params>
+		<para-id>num-sessions</para-id>
+		<description>
+			Total number of sessions the VNF can handle
+		</description>
+	</monitoring-params>
+	<vnf-flavours>
+		<vnf-flavour>
+			<vnf-flavour-id>Gold</vnf-flavour-id>
+			<description>Gold Service flavour</description>
+			<assurance-params>
+				<param-id>num-sessions</param-id>
+				<value>100000</value>
+			</assurance-params>
+			<vdus>
+				<vdu>
+					<vdu-id>isscsf</vdu-id>
+					<num-instances>1</num-instances>
+					<workflows />
+					<vdu-flavour>
+						<vdu-flavorur-id>vdu-flavorur</vdu-flavorur-id>
+						<description>vdu-flavorur</description>
+						<vm_image>http://www.example.com/support/vFW1.qcow</vm_image>
+						<storage />
+						<cpu>2</cpu>
+						<memory>8</memory>
+					</vdu-flavour>
+					<other-constraints />
+					<network-interfaces>
+						<network-interface>
+							<name>mgmt-if</name>
+							<description>
+								Interface Used for management interface
+							</description>
+							<connection-point-ref>
+								connection-points/mgmt-if
+							</connection-point-ref>
+							<properties>
+								<property>
+									<key>driver</key>
+									<value>e1000</value>
+								</property>
+							</properties>
+						</network-interface>
+						<network-interface>
+							<name>pkt-in</name>
+							<description>Packet in interface</description>
+							<connection-point-ref>
+								connection-points/connection-point/pkt-in
+							</connection-point-ref>
+							<properties>
+								<property>
+									<key>ipport</key>
+									<value>192.168.100.18:18080</value>
+								</property>
+								<property>
+									<key>driver</key>
+									<value>DPDK-PMD</value>
+								</property>
+							</properties>
+						</network-interface>
+						<network-interface>
+							<name>pkt-out</name>
+							<description>Packet out interface</description>
+							<connection-point-ref>
+								connection-points/connection-point/pkt-out
+							</connection-point-ref>
+							<properties>
+								<property>
+									<key>ipport</key>
+									<value>192.168.100.18:18081</value>
+								</property>
+								<property>
+									<key>driver</key>
+									<value>DPDK-PMD</value>
+								</property>
+							</properties>
+						</network-interface>
+					</network-interfaces>
+				</vdu>
+				<vdu />
+			</vdus>
+		</vnf-flavour>
+		<vnf-flavour />
+	</vnf-flavours>
+	<dependencies />
+	<autoscaling-policies />
+</vnfd>

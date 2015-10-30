@@ -1,0 +1,1 @@
+lessc ../../less/scmp.less  ../../css/scmp.css &

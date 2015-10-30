@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.culabs.unicomportal.dao.DBUserMapper" >
+  
+ <!-- #{id,jdbcType=INTEGER},  -->
+  <insert id="insert" parameterType="com.culabs.unicomportal.model.db.DBUsers" >
+    insert into users (created_at, updated_at, 
+      username, password, email,phone,active,is_super,last_login,deleted,region
+      )
+    values (#{created_at,jdbcType=TIMESTAMP}, #{updated_at,jdbcType=TIMESTAMP},
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR},#{active,jdbcType=BIT},#{is_super,jdbcType=BIT},#{last_login,jdbcType=TIMESTAMP},
+      #{deleted,jdbcType=BIT},#{region,jdbcType=VARCHAR})
+  </insert>
+  
+  <!-- <insert id="insertSelective" parameterType="com.culabs.nfvo.model.db.DBVpc" >
+    
+    insert into vpc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vpc_id != null" >
+        vpc_id,
+      </if>
+      <if test="tenant_id != null" >
+        tenant_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="admin_state_up != null" >
+        admin_state_up,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="external_gateway_info != null" >
+        external_gateway_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vpc_id != null" >
+        #{vpc_id,jdbcType=VARCHAR},
+      </if>
+      <if test="tenant_id != null" >
+        #{tenant_id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="admin_state_up != null" >
+        #{admin_state_up,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="external_gateway_info != null" >
+        #{external_gateway_info,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert> -->
+  
+</mapper>

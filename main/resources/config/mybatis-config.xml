@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE configuration  
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!--在下面的datasource中可以使用占位符来引用属性文件中的值 -->
+	<!-- <properties resource="properties/datasource.properties" /> -->
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25000" />
+	</settings>
+
+	<!-- 配置别名 类型别名是Java 类型的简称。它仅仅只是关联到XML 配置，简写冗长的JAVA 类名。 -->
+	<typeAliases>
+		<!-- <typeAlias type="com.accp.mybatis.model.Blog" alias="Blog" /> -->
+	</typeAliases>
+	<!-- 使用这个配置,"Blog"就能在任何地方代替"com.accp.mybatis.model.Blog"被使用。 -->
+	<!-- java 中一些简单类型的别名 别名 映射的类型 _byte byte _long long _short short _int int 
+		_integer int _double double _float float _boolean boolean string String byte 
+		Byte long Long short Short int Integer integer Integer double Double float 
+		Float boolean Boolean date Date decimal BigDecimal bigdecimal BigDecimal 
+		object Object map Map hashmap HashMap list List arraylist ArrayList collection 
+		Collection iterator Iterator -->
+	<!-- 每个数据库(environment)对应一个SqlSessionFactory 实例 -->
+	<environments default="accp">
+		<!-- environments对于一个应用可能连接多个数据库，那就需要配置不同的环境来连接不同的数据库， 每一个SqlSessionFactory对应一个environments也可以设置不同的环境应用于开发或测试的环境如果环境被忽略， 
+			那么默认环境将会被加载，也就是default="development"的作用了 -->
+		<environment id="accp">
+			<transactionManager type="JDBC" />
+			<!-- transactionManager设置事物的管理类型是 type=”[JDBC|MANAGED]” JDBC使用datasource的连接来管理事物范围。 
+				MANAGED自己不进行事物的提交和回滚，依靠容器来管理事物，设置closeConnection为false，取消自动关闭连接 -->
+			<dataSource type="POOLED">
+				<!-- dataSource设置数据源[UNPOOLED|POOLED|JNDI] POOLED:每次被请求时简单打开和关闭连接 POOLED:JDBC 
+					连接对象的数据源连接池的实现，用来避免创建新的连接实例时必要的初始连接和认证时间。 poolMaximumActiveConnections – 
+					在任意时间存在的活动（也就是正在使用）连接的数量。默认值：10 poolMaximumIdleConnections – 任意时间存在的空闲连接数。 
+					oolMaximumCheckoutTime – 在被强制返回之前，池中连接被检查的时间。默认值：20000 毫秒（也就是 20 秒） poolTimeToWait 
+					– 这是给连接池一个打印日志状态机会的低层次设置，还有重新尝试获得连接，这些情况下往往需要很长时间（为了避免连接池没有配置时静默失败）。 默认值：20000 
+					毫秒（也就是 20 秒） poolPingQuery – 发送到数据的侦测查询，用来验证连接是否正常工作，并且准备接受请求。默认是“NO PING 
+					QUERY SET”，这会引起许多数据库驱动连接由一个错误信 息而导致失败。 poolPingEnabled – 这是开启或禁用侦测查询。如果开启，你必须用一个合法的SQL语句（最好是很快速的）设置 
+					poolPingQuery 属性。默认值：false。 poolPingConnectionsNotUsedFor – 这是用来配置 poolPingQuery 
+					多次时间被用一次。这可以被设置匹配标准的数据库连接超时时间，来避免不必要的侦测。默认值：0 （也就是所有连接每一时刻都被侦测-但仅仅当 poolPingEnabled 
+					为 true 时适用）。 JNDI – 这个数据源的实现是为了使用如 Spring 或应用服务器这类的容器，容器可以集中或在外部配置数据源，然后放置一个 
+					JNDI 上下文的引用。 initial_context – 这个属性用来从初始上下文中寻找环境（也就是initialContext.lookup（init 
+					ial——context））。这是个可选属性，如果被忽略，那么data_source 属性将 会直接以 init ialContext 为背景再次寻找。 
+					data_source – 这是引用数据源实例位置的上下文的路径。它会以由 init ial_context查询返回的环境为背景来查找，如果 init 
+					ial_context 没有返回结果时，直接以初始上下 文为环境来查找。 -->
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<!-- window server name: MySQL56 root/root nfvdb/nfvdb -->
+				<property name="url"
+					value="jdbc:mysql://localhost:3306/nfvodb?characterEncoding=UTF-8" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+				<property name="driver.encoding" value="UTF-8" />
+			</dataSource>
+		</environment>
+		<!-- 联通门户数据库 -->
+		<environment id="unicom">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url"
+					value="jdbc:mysql://192.168.200.80:3306/nebula?characterEncoding=UTF-8" />
+				<property name="username" value="nebula" />
+				<property name="password" value="nebula" />
+				<property name="driver.encoding" value="UTF-8" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!--mappers是告诉MyBatis 去哪寻找映射SQL 的语句。可以使用类路径中的资源引用，或者使用字符，输入确切的URL 引用。 -->
+	<mappers>
+		<!-- 
+		<mapper resource="com\culabs\nfvo\dao\AssuranceParamMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\CompletionMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\ConnectionPointMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DependencyMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\EndpointMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\ForwardingGraphMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\MemberVldMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\MemberVnfMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\MonitoringParamMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\NetworkForwardingPathMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\NetworkInterfaceMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\PropertyMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\TemplateFlavourMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\TemplateMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\VduFlavourMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\VduMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\VldMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\WorkflowMapper.xml" />  -->
+<!--
+		 <mapper resource="com\culabs\nfvo\dao\DBNsdMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBVnfdMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBNsdVnfdMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBAclMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBAclRuleMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBAclSubnetMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBNatMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBNetworkMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBPortMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBPublicIpMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBPublicIpResourceMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBGWRouterMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBRoutingRuleMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBRoutingTableMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBServerMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBSubnetMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBSubnetRoutingTableMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBTenantMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBVpnConnectionPointMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBVpcMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBHypervisorMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBInstanceMapper.xml" />
+		<mapper resource="com\culabs\nfvo\dao\DBInstanceServerMapper.xml" />
+
+		<mapper resource="com\culabs\unicomportal\dao\DBAclRulesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAclTablesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAggregatesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAlarmBindingsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAlarmMetersMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAlarmRulesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAlarmsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAlarmTimeConstraintsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAlembicVersionMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAlertsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBAtomdetailsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBComputeNodesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBFlavorsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBFlowdetailsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBImagesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBInstanceBackupsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBInstancesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBInternetsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBJobsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBLbMembersMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBLbPoolsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBLbPoolStatisticsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBLbVipsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBLogBooksMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBNatsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBNetworksMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBPermissionsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBPortsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBPublicipsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBPublicResourcesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBQuotaClassesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBQuotasMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBQuotaUsagesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBReservationsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBRolePermissionsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBRolesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBRouterNetworksMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBRouterRulesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBRoutersMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBRouteTablesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBSecurityGroupPortsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBSecurityGroupRulesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBSecurityGroupsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBSubnetAclTablesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBSubnetRouteTablesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBSubnetsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBSystemPropertiesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBUserLoginMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBUserPropertiesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBUserRolesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBUsersMapper.xml" />
+		<mapper	resource="com\culabs\unicomportal\dao\DBVirtualrouterFloatingipsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVirtualrouterMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVirtualrouterNatsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVirtualrouterNetworksMapper.xml" />
+		<mapper	resource="com\culabs\unicomportal\dao\DBVirtualrouterPublicipsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVirtualrouterSubnetsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVolumeBackupsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVolumesMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVpnEndpointsMapper.xml" />
+		<mapper resource="com\culabs\unicomportal\dao\DBVpnsMapper.xml" /> -->
+		<package name="com.culabs.nfvo.dao" />
+		<package name="com.culabs.unicomportal.dao" />
+	</mappers>
+</configuration>  

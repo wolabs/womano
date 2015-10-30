@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nsd xmlns="urn:com.culabs.nfvo.model.nsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:com.culabs.nfvo.model.nsd nsd.xsd ">
+	<name>vIMS</name>
+	<nsd-id>vIMS</nsd-id>
+	<provider>culabs</provider>
+	<type>vIMS</type>
+	<description>vIMS</description>
+	<version>1.0</version>
+	<monitoring-params>
+		<param-id></param-id>
+		<description></description>
+	</monitoring-params>
+	<end-points>
+		<end-point>
+			<end-point-id>ue-epoint</end-point-id>
+			<description>Access Connection Point</description>
+		</end-point>
+		<end-point>
+			<end-point-id>I|S-to-MGCF</end-point-id>
+			<description>Access Connection Point</description>
+		</end-point>
+	</end-points>
+	<vlds>
+		<vld>
+			<name>ue2p-scsf</name>
+			<vld-id>ue2p-scsf</vld-id>
+			<provider>culabs</provider>
+			<description></description>
+			<version>1.0</version>
+			<latency-assurance>10ms</latency-assurance>
+			<max-end-points>100</max-end-points>
+		</vld>
+		<vld>
+			<name>p-scsf-i|s-scsf</name>
+			<vld-id>p-scsf-i|s-scsf</vld-id>
+			<provider>culabs</provider>
+			<description>Pure Virtual Network</description>
+			<version>1.0</version>
+			<latency-assurance>20ms</latency-assurance>
+			<max-end-points>100</max-end-points>
+			<properties />
+		</vld>
+		<vld>
+			<name>i|s-scsf2xdms</name>
+			<vld-id>i|s-scsf2xdms</vld-id>
+			<provider>culabs</provider>
+			<description>Pure Virtual Network</description>
+			<version>1.0</version>
+			<latency-assurance>10ms</latency-assurance>
+			<max-end-points>50</max-end-points>
+			<properties />
+		</vld>
+		<vld>
+			<name>i|s-scsf2hss</name>
+			<vld-id>i|s-scsf2hss</vld-id>
+			<provider>culabs</provider>
+			<description>Pure Virtual Network</description>
+			<version>1.0</version>
+			<latency-assurance>10ms</latency-assurance>
+			<max-end-points>50</max-end-points>
+			<properties />
+		</vld>
+		<vld>
+			<name>ellis2xdms</name>
+			<vld-id>ellis2xdms</vld-id>
+			<provider>culabs</provider>
+			<description>Pure Virtual Network</description>
+			<version>1.0</version>
+			<latency-assurance>10ms</latency-assurance>
+			<max-end-points>50</max-end-points>
+			<properties />
+		</vld>
+		<vld>
+			<name>ellis2hss</name>
+			<vld-id>ellis2hss</vld-id>
+			<provider>culabs</provider>
+			<description>Pure Virtual Network</description>
+			<version>1.0</version>
+			<latency-assurance>10ms</latency-assurance>
+			<max-end-points>50</max-end-points>
+			<properties />
+		</vld>
+	</vlds>
+	<ns-flavours>
+		<ns-flavour>
+			<ns-flavour-id>Gold</ns-flavour-id>
+			<description>Gold Service</description>
+			<assurance-params>
+				<param-id>num-sessions</param-id>
+				<value>1000000</value>
+			</assurance-params>
+			<member-vnfs>
+				<member-vnf>
+					<member-vnf-id>pscsf</member-vnf-id>
+					<vnf-flavour>Gold</vnf-flavour>
+					<completions>
+						<completion>
+							<command>ps -ef | grep 8888</command>
+							<expectation>pscsf</expectation>
+						</completion>						
+					</completions>
+					<dependency>
+						<source>isscsf</source>               
+						<target></target>
+					</dependency>
+				</member-vnf>
+				<member-vnf>
+					<member-vnf-id>isscsf</member-vnf-id>
+					<vnf-flavour>Gold</vnf-flavour>
+					<completions>
+						<completion>
+							<command>ps -ef | grep 9090</command>
+							<expectation>isscsf</expectation>
+						</completion>						
+					</completions>
+					<dependency>
+						<source>ellis</source>
+						<target>pscsf</target>
+					</dependency>
+				</member-vnf>
+				<member-vnf>
+					<member-vnf-id>hss</member-vnf-id>
+					<vnf-flavour>Gold</vnf-flavour>
+					<completions>
+						<completion>
+							<command>ps -ef | grep 9090</command>
+							<expectation>hss</expectation>
+						</completion>						
+					</completions>
+					<dependency>
+						<source></source>
+						<target>xdms</target>
+					</dependency>
+				</member-vnf>
+				<member-vnf>
+					<member-vnf-id>xdms</member-vnf-id>
+					<vnf-flavour>Gold</vnf-flavour>
+					<completions>
+						<completion>
+							<command>ps -ef | grep 9090</command>
+							<expectation>xdms</expectation>
+						</completion>						
+					</completions>
+					<dependency>
+						<source>hss</source>
+						<target>ellis</target>
+					</dependency>
+				</member-vnf>
+				<member-vnf>
+					<member-vnf-id>ellis</member-vnf-id>
+					<vnf-flavour>Gold</vnf-flavour>
+					<completions>
+						<completion>
+							<command>ps -ef | grep 9090</command>
+							<expectation>ellis</expectation>
+						</completion>						
+					</completions>
+					<dependency>
+						<source>xdms</source>
+						<target>isscsf</target>
+					</dependency>
+				</member-vnf>
+			</member-vnfs>
+			<member-vlds>
+				<member-vld-id>ue2p-scsf</member-vld-id>
+				<member-vld-id>p-scsf-i|s-scsf</member-vld-id>
+				<member-vld-id>i|s-scsf2xdms</member-vld-id>
+				<member-vld-id>i|s-scsf2hss</member-vld-id>
+				<member-vld-id>ellis2xdms</member-vld-id>
+				<member-vld-id>ellis2hss</member-vld-id>
+			</member-vlds>
+			<forwarding-graphs>
+				<forwarding-graph>
+					<forwarding-graph-id>ue-access</forwarding-graph-id>
+					<direction>bi-directional</direction>
+					<network-forwarding-path>
+						<end-point-src>ue-epoint</end-point-src>
+						<forwarding-policy />
+						<vld>p-scsf-i|s-scsf</vld>
+						<dst-connection-point>
+							<vnf>pscsf</vnf>
+							<vnf-connection-point>pkt-in</vnf-connection-point>
+						</dst-connection-point>
+						<src-connection-point>
+							<vnf>pscsf</vnf>
+							<vnf-connection-point>pkt-out</vnf-connection-point>
+						</src-connection-point>
+						<forwarding-policy />
+						<vld> p-scsf-i|s-scsf </vld>
+						<dst-connection-point>
+							<vnf>isscsf</vnf>
+							<vnf-connection-point>pkt-in</vnf-connection-point>
+						</dst-connection-point>
+						<src-connection-point>
+							<vnf>isscsf</vnf>
+							<vnf-connection-point>pkt-out</vnf-connection-point>
+						</src-connection-point>
+						<forwarding-policy />
+						<vld> i|s-scsf2xdms </vld>
+						<dst-connection-point>
+							<vnf>xdms</vnf>
+							<vnf-connection-point>pkt-in</vnf-connection-point>
+						</dst-connection-point>
+						<src-connection-point>
+							<vnf>xdms</vnf>
+							<vnf-connection-point>pkt-out</vnf-connection-point>
+						</src-connection-point>
+						<forwarding-policy />
+						<vld>ellis2xdms</vld>
+						<dst-connection-point>
+							<vnf>ellis</vnf>
+							<vnf-connection-point>pkt-in</vnf-connection-point>
+						</dst-connection-point>
+						<forwarding-policy />
+						<src-connection-point>
+							<vnf>isscsf</vnf>
+							<vnf-connection-point>pkt-out2</vnf-connection-point>
+						</src-connection-point>
+						<forwarding-policy />
+						<vld>i|s-scsf2hss</vld>
+						<dst-connection-point>
+							<vnf>hss</vnf>
+							<vnf-connection-point>pkt-in</vnf-connection-point>
+						</dst-connection-point>
+						<src-connection-point>
+							<vnf>hss</vnf>
+							<vnf-connection-point>pkt-out</vnf-connection-point>
+						</src-connection-point>
+						<forwarding-policy />
+						<vld>ellis2hss</vld>
+						<dst-connection-point>
+							<vnf>ellis</vnf>
+							<vnf-connection-point>pkt-in</vnf-connection-point>
+						</dst-connection-point>
+						<forwarding-policy />
+					</network-forwarding-path>
+				</forwarding-graph>
+				<forwarding-graph />
+			</forwarding-graphs>
+		</ns-flavour>
+		<ns-flavour />
+	</ns-flavours>
+</nsd>
